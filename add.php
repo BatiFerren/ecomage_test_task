@@ -39,7 +39,7 @@ $err = '';
 
        $dbh = new PDO($dsn, $user, $password);
 
-       $sql = "INSERT usrs (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
+       $sql = "INSERT users (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
        $query = $dbh->prepare($sql);
 
        $params = [
