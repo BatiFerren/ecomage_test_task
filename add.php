@@ -24,10 +24,40 @@ $err = '';
         $firstName = '';
         $lastName = '';
         $email = '';
+        $createDt = '';
     }
 
-    print_r($_POST);
-    var_dump($isFormSend);
+
+    $dbHost = 'localhost';
+    $dbName = 'test_encomage_db';
+    $dbUser = 'root';
+    $dbPass = 'root';
+    $dbTable = 'users';
+    $charset = 'utf8';
+
+
+   if ($firstName || $lastName || $email || $createDt){
+       /* Connecting to database MySQL with driver */
+       $dsn = 'mysql:dbname='.$dbName.';host='.$dbHost.';charset='.$charset;
+       $user = $dbUser;
+       $password = $dbPass;
+
+       $dbh = new PDO($dsn, $user, $password);
+
+       $sql = "INSERT users (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
+       $query = $dbh->prepare($sql);
+
+       $params = [
+           'fName' => $firstName,
+           'lName' => $lastName,
+           'email' => $email,
+           'crDate' => $createDt
+
+       ];
+
+       $query->execute($params);
+   }
+
 
 ?>
 
