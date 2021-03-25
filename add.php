@@ -39,8 +39,8 @@ $err = '';
 
        $dbh = new PDO($dsn, $user, $password);
 
-       $sql = "INSERT users (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
-       $query = $dbh->prepare($sql);
+       $sqlAdd = 'INSERT '.$dbTable.' (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)';
+       $query = $dbh->prepare($sqlAdd);
 
        $params = [
            'fName' => $firstName,
@@ -57,6 +57,10 @@ $err = '';
            echo $errInfo[2];
            exit();
        }
+
+       /*TODO: Need to make redirect to index page
+         sleep(3);
+         header('Location: index.php');*/
    }
 
 
