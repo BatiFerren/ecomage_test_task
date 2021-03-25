@@ -11,6 +11,9 @@ $err = '';
         if($firstName === '' || $lastName === '' || $email === ''){
             $err = 'Type all data!';
         }
+        elseif (mb_strlen($firstName, 'UTF8') < 3 || mb_strlen($lastName, 'UTF8') < 3){
+            $err = 'First Name and Last Name must must contains more than 2 characters';
+        }
         else{
             $createDt = date("Y-d-m H:i:s");
             $isFormSend = true;
@@ -18,7 +21,9 @@ $err = '';
 
     }
     else{
-
+        $firstName = '';
+        $lastName = '';
+        $email = '';
     }
 
     print_r($_POST);
@@ -40,25 +45,31 @@ $err = '';
 
 <div class="container">
     <? if($isFormSend): ?>
-        <p>Your data is sended!</p>
+        <div class="alert alert-success" role="alert">
+            <p>Your data is sended!</p>
+        </div>
     <? else: ?>
         <form method="post">
             <div class="form-group">
                 <label for="firstName1">First Name</label>
-                <input class="form-control" id="firstName1" type="text" placeholder="" name="firstName">
+                <input class="form-control" id="firstName1" type="text" placeholder="" name="firstName" value="<?=$firstName?>">
             </div>
             <div class="form-group">
                 <label for="lastName1">Last Name</label>
-                <input class="form-control" id="lastName1" type="text" placeholder="" name="lastName">
+                <input class="form-control" id="lastName1" type="text" placeholder="" name="lastName" value="<?=$lastName?>">
             </div>
             <div class="form-group">
                 <label for="inputEmail1">Email address</label>
-                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" name="email">
+                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" name="email" value="<?=$email?>">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    <p><?=$err?></p>
+        <? if ($err): ?>
+            <div class="alert alert-danger" role="alert">
+                <p><?=$err?></p>
+            </div>
+        <? endif; ?>
     <? endif; ?>
 </div>
 
