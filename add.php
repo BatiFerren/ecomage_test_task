@@ -28,12 +28,7 @@ $err = '';
     }
 
 
-    $dbHost = 'localhost';
-    $dbName = 'test_encomage_db';
-    $dbUser = 'root';
-    $dbPass = 'root';
-    $dbTable = 'users';
-    $charset = 'utf8';
+    include_once 'config.php';
 
 
    if ($firstName || $lastName || $email || $createDt){
@@ -44,7 +39,7 @@ $err = '';
 
        $dbh = new PDO($dsn, $user, $password);
 
-       $sql = "INSERT users (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
+       $sql = "INSERT usrs (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)";
        $query = $dbh->prepare($sql);
 
        $params = [
@@ -56,6 +51,12 @@ $err = '';
        ];
 
        $query->execute($params);
+       $errInfo = $query->errorInfo();
+
+       if ($errInfo[0] !== PDO::ERR_NONE){
+           echo $errInfo[2];
+           exit();
+       }
    }
 
 
