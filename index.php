@@ -1,21 +1,11 @@
 <?php
-include_once 'config.php';
-$dsn = 'mysql:dbname='.$dbName.';host='.$dbHost.';charset='.$charset;
-$user = $dbUser;
-$password = $dbPass;
 
-$dbh = new PDO($dsn, $user, $password);
+include_once 'config.php';
+include_once 'model/m_db.php';
 
 $sqlShow = 'SELECT * FROM '.$dbTable.' ORDER BY id ASC';
-$query = $dbh->prepare($sqlShow);
 
-$query->execute();
-$errInfo = $query->errorInfo();
-
-if ($errInfo[0] !== PDO::ERR_NONE){
-    echo $errInfo[2];
-    exit();
-}
+$query = dbQuery($sqlShow);
 
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 

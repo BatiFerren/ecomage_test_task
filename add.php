@@ -15,7 +15,7 @@ $err = '';
             $err = 'First Name and Last Name must must contains more than 2 characters';
         }
         else{
-            $createDt = date("Y-d-m H:i:s");
+            $createDt = date("Y-m-d H:i:s");
             $isFormSend = true;
         }
 
@@ -27,21 +27,12 @@ $err = '';
         $createDt = '';
     }
 
-
     include_once 'config.php';
 
-
    if ($firstName || $lastName || $email || $createDt){
-       /* Connecting to database MySQL with driver */
-       $dsn = 'mysql:dbname='.$dbName.';host='.$dbHost.';charset='.$charset;
-       $user = $dbUser;
-       $password = $dbPass;
 
-       $dbh = new PDO($dsn, $user, $password);
-
+       include_once 'model/m_db.php';
        $sqlAdd = 'INSERT '.$dbTable.' (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)';
-       $query = $dbh->prepare($sqlAdd);
-
        $params = [
            'fName' => $firstName,
            'lName' => $lastName,
@@ -49,18 +40,9 @@ $err = '';
            'crDate' => $createDt
 
        ];
-
-       $query->execute($params);
-       $errInfo = $query->errorInfo();
-
-       if ($errInfo[0] !== PDO::ERR_NONE){
-           echo $errInfo[2];
-           exit();
-       }
-
-       /*TODO: Need to make redirect to index page
-         sleep(3);
-         header('Location: index.php');*/
+       dbQuery($sqlAdd, $params);
+       header('Location: index.php');
+       exit();
    }
 
 
@@ -79,32 +61,26 @@ $err = '';
 <body>
 
 <div class="container">
-    <? if($isFormSend): ?>
-        <div class="alert alert-success" role="alert">
-            <p>Your data is sended!</p>
+    <form method="post">
+        <div class="form-group">
+            <label for="firstName1">First Name</label>
+            <input class="form-control" id="firstName1" type="text" placeholder="" name="firstName" value="<?=$firstName?>">
         </div>
-    <? else: ?>
-        <form method="post">
-            <div class="form-group">
-                <label for="firstName1">First Name</label>
-                <input class="form-control" id="firstName1" type="text" placeholder="" name="firstName" value="<?=$firstName?>">
-            </div>
-            <div class="form-group">
-                <label for="lastName1">Last Name</label>
-                <input class="form-control" id="lastName1" type="text" placeholder="" name="lastName" value="<?=$lastName?>">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail1">Email address</label>
-                <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" name="email" value="<?=$email?>">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <? if ($err): ?>
-            <div class="alert alert-danger" role="alert">
-                <p><?=$err?></p>
-            </div>
-        <? endif; ?>
+        <div class="form-group">
+            <label for="lastName1">Last Name</label>
+            <input class="form-control" id="lastName1" type="text" placeholder="" name="lastName" value="<?=$lastName?>">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail1">Email address</label>
+            <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" name="email" value="<?=$email?>">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <? if ($err): ?>
+        <div class="alert alert-danger" role="alert">
+            <p><?=$err?></p>
+        </div>
     <? endif; ?>
 </div>
 
