@@ -1,7 +1,5 @@
 <?php
 
-
-
     function dbConnect() : PDO{
         /* Connecting to database MySQL with driver */
 
@@ -16,7 +14,12 @@
         $user = $dbUser;
         $password = $dbPass;
 
-        $dbh = new PDO($dsn, $user, $password);
+        static $dbh;
+
+        if ($dbh === null){
+            $dbh = new PDO($dsn, $user, $password);
+        }
+
         return $dbh;
     }
 
