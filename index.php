@@ -1,13 +1,7 @@
 <?php
 
-include_once 'config.php';
-include_once 'model/m_db.php';
-
-$sqlShow = 'SELECT * FROM '.$dbTable.' ORDER BY id ASC';
-
-$query = dbQuery($sqlShow);
-
-$users = $query->fetchAll(PDO::FETCH_ASSOC);
+include_once 'model/users.php';
+$users = usersAll();
 
 ?>
 

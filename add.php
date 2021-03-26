@@ -27,20 +27,18 @@ $err = '';
         $createDt = '';
     }
 
-    include_once 'config.php';
-
    if ($firstName || $lastName || $email || $createDt){
 
-       include_once 'model/m_db.php';
-       $sqlAdd = 'INSERT '.$dbTable.' (first_name, last_name, email, create_date) VALUES (:fName, :lName, :email, :crDate)';
-       $params = [
+        include_once 'model/users.php';
+        $params = [
            'fName' => $firstName,
            'lName' => $lastName,
            'email' => $email,
            'crDate' => $createDt
 
-       ];
-       dbQuery($sqlAdd, $params);
+        ];
+        usersAdd($params);
+
        header('Location: index.php');
        exit();
    }
