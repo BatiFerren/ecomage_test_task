@@ -13,3 +13,15 @@ function usersAdd(array $params) : bool{
     dbQuery($sqlAdd, $params);
     return true;
 }
+
+function usersSelectedEdit($id) : array{
+    $sqlSelectedEdit = 'SELECT * FROM users WHERE id = '.$id;
+    $query = dbQuery($sqlSelectedEdit);
+    return $users = $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function usersEdit(array $params) : bool{
+    $sqlEdit = 'UPDATE users SET first_name = :fName, last_name = :lName, email = :email, update_date = :edDate WHERE id = :id';
+    dbQuery($sqlEdit, $params);
+    return true;
+}

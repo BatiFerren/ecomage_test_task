@@ -11,33 +11,27 @@
 <body>
 
 <div class="container">
-    <a class="btn btn-info" href="add.php" role="button">Add user</a>
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Create Date</th>
-            <th scope="col">Update Date</th>
-            <th scope="col">Edited link</th>
-        </tr>
-        </thead>
-        <tbody>
-        <? foreach ($users as $user): ?>
-            <tr>
-                <th scope="row"><?=$user['id']?></th>
-                <td><?=$user['first_name']?></td>
-                <td><?=$user['last_name']?></td>
-                <td><?=$user['email']?></td>
-                <td><?=$user['create_date']?></td>
-                <td><?=$user['update_date']?></td>
-                <td><a class="btn btn-info" href="edit.php?id=<?=$user['id']?>" role="button">Edit</a></td>
-            </tr>
-        <? endforeach; ?>
-        </tbody>
-    </table>
+    <form method="post">
+        <div class="form-group">
+            <label for="firstName1">First Name</label>
+            <input class="form-control" id="firstName1" type="text" placeholder="" name="firstName" value="<?=$firstName?>">
+        </div>
+        <div class="form-group">
+            <label for="lastName1">Last Name</label>
+            <input class="form-control" id="lastName1" type="text" placeholder="" name="lastName" value="<?=$lastName?>">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail1">Email address</label>
+            <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" name="email" value="<?=$email?>">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <? if ($err): ?>
+        <div class="alert alert-danger" role="alert">
+            <p><?=$err?></p>
+        </div>
+    <? endif; ?>
 </div>
 
 <!-- Optional JavaScript -->
@@ -47,3 +41,4 @@
 <script src="js/bootstrap.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 </html>
+

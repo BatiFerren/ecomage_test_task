@@ -15,6 +15,8 @@ $err = '';
             $err = 'First Name and Last Name must contains more than 2 characters';
         }
         else{
+            $firstName = htmlspecialchars($firstName);
+            $lastName = htmlspecialchars($lastName);
             $createDt = date("Y-m-d H:i:s");
             $isFormSend = true;
             include_once 'model/users.php';
