@@ -13,7 +13,7 @@
 <div class="container">
     <a class="btn btn-info" href="add.php" role="button">Add user</a>
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
             <th scope="col">First Name</th>
@@ -25,6 +25,34 @@
         </tr>
         </thead>
         <tbody>
+            <tr>
+                <form>
+                    <td class="align-middle"><input type="text" style="width: 50px;" id="idSearchForm" name="idSearchForm"></td>
+                    <td class="align-middle"><input type="text" id="fNameSearchForm" name="fNameSearchForm"></td>
+                    <td class="align-middle"><input type="text" id="lNameSearchForm" name="lNameSearchForm"></td>
+                    <td class="align-middle"><input type="email" id="emailSearchForm" aria-describedby="emailHelp" name="emailSearchForm"></td>
+                    <td>
+                        <label for="crDateFrom">From</label>
+                        <input type="date" id="crDateFrom" name="crDateFrom">
+                        <label for="crDateTo">To</label>
+                        <input type="date" id="crDateTo" name="crDateTo">
+                    </td>
+                    <td>
+                        <label for="edDateFrom">From</label>
+                        <input type="date" id="edDateFrom" name="edDateFrom">
+                        <label for="edDateTo">To</label>
+                        <input type="date" id="edDateTo" name="edDateTo">
+                    </td>
+                    <td class="align-middle">
+                        <div class="container">
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                <a class="btn btn-primary btn-sm" href="index.php" role="button">Reset</a>
+                            </div>
+                        </div>
+                    </td>
+                </form>
+            </tr>
         <? foreach ($users as $user): ?>
             <tr>
                 <th scope="row"><?=$user['id']?></th>
