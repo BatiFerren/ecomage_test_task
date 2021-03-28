@@ -14,7 +14,7 @@
 
 <div class="container">
     <a id="addUserButton" class="btn btn-info" href="add.php" role="button">Add user</a>
-    <table class="table table-bordered table-hover" id="myTable">
+    <table class="table table-bordered table-hover" id="mainTable">
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
@@ -73,10 +73,12 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="js/bootstrap.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 <script src="js/datetable.js"></script>
 <script>
     $(document).ready( function () {
-        $('#myTable').DataTable({
+        $('#mainTable').DataTable({
             searching: false
         });
     } );
